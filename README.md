@@ -1,4 +1,8 @@
-# Setup and flashing
+## Readme
+The following repo contains the keymap files that are located in
+`~/qmk_firmware/keyboards/sofle/keymaps/my-sofle-keymap`
+
+## Setup and flashing
 
 ### Check if qmk is ready
 ``` bash
