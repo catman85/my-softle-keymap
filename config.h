@@ -4,3 +4,6 @@
 see https://docs.qmk.fm/#/feature_split_keyboard?id=setting-handedness
 for more options.
 */
+
+
+// ENCODERS_PAD_A is already defined in sofle/rev1/config.h

@@ -15,3 +15,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[4] = LAYOUT(KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_DEL, KC_NO, KC_NO, KC_BRID, KC_NO, KC_BRIU, KC_NO, KC_F11, KC_F12, KC_F13, KC_F14, KC_F15, KC_BSLS, KC_CAPS, KC_WH_U, KC_VOLD, KC_MUTE, KC_VOLU, KC_NO, KC_NO, KC_NO, KC_NO, TO(0), KC_NO, KC_NO, KC_WH_L, KC_WH_D, KC_WH_R, KC_CALC, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, TO(2), KC_NO, KC_NO, KC_PIPE, KC_RSFT, KC_LCTL, KC_LALT, KC_LGUI, KC_NO, KC_MPLY, KC_MSTP, KC_TRNS, KC_LGUI, KC_LALT, KC_RCTL)
 };
 
+/*
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [0] = { ENCODER_CCW_CW(MS_WHLU, MS_WHLD),  ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [1] = { ENCODER_CCW_CW(MS_WHLU, MS_WHLD),  ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [2] = { ENCODER_CCW_CW(MS_WHLU, MS_WHLD),  ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [3] = { ENCODER_CCW_CW(MS_WHLU, MS_WHLD),  ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [4] = { ENCODER_CCW_CW(MS_WHLU, MS_WHLD),  ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  }
+    //                Encoder 1                            Encoder 2
+};
+#endif
+*/
+
+#ifdef ENCODER_ENABLE
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) { // Left encoder
+        if (clockwise) {
+            tap_code(KC_VOLU); // Volume Up
+        } else {
+            tap_code(KC_VOLD); // Volume Down
+        }
+    } else if (index == 1) { // Right encoder
+        if (clockwise) {
+            tap_code(KC_PGDN); // Page Down
+        } else {
+            tap_code(KC_PGUP); // Page Up
+        }
+    }
+    return false;
+}
+#endif
