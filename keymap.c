@@ -18,11 +18,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* encoder map is not working
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [0] = { ENCODER_CCW_CW(MS_WHLU, MS_WHLD),  ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
-    [1] = { ENCODER_CCW_CW(MS_WHLU, MS_WHLD),  ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
-    [2] = { ENCODER_CCW_CW(MS_WHLU, MS_WHLD),  ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
-    [3] = { ENCODER_CCW_CW(MS_WHLU, MS_WHLD),  ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
-    [4] = { ENCODER_CCW_CW(MS_WHLU, MS_WHLD),  ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  }
+    [0] = { ENCODER_CCW_CW(MS_WHLU, MS_WHLD),  ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  }
     //                Encoder 1                            Encoder 2
 };
 #endif
@@ -31,12 +27,12 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
       switch (get_highest_layer(layer_state)) {
-        case 0: // default
+        case 0: // default layer
 			if (index == 0) { // Left Encoder
 				if (clockwise) {
-					tap_code(KC_DOWN); // Page Down
+					tap_code(KC_DOWN); // Down
 				} else {
-					tap_code(KC_UP); // Page Up
+					tap_code(KC_UP); // Up
 				}
 			} else if (index == 1) { // Right encoder
 				if (clockwise) {
@@ -46,18 +42,45 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 				}
 			}
             break;
-        case 1: // left function
-			if (index == 0) {
+        case 1: // default layer left function
+			if (index == 1) { // Right encoder
 				if (clockwise) {
-					tap_code(KC_MS_WH_DOWN); // Brightness Up
+					tap_code(KC_BRIGHTNESS_UP); // Brightness up
 				} else {
-					tap_code(KC_MS_WH_UP); // Brightness Down
+					tap_code(KC_BRIGHTNESS_DOWN); // Brightness down
+				}
+			}
+            break;
+		case 2: // default mac layer	
+			if (index == 0) { // Left Encoder
+				if (clockwise) {
+					tap_code(KC_DOWN); // Down
+				} else {
+					tap_code(KC_UP); // Up
 				}
 			} else if (index == 1) { // Right encoder
 				if (clockwise) {
-					tap_code(KC_PGDN); // Page Down
+					tap_code(KC_VOLU); // Volume up
 				} else {
-					tap_code(KC_PGUP); // Page Up
+					tap_code(KC_VOLD); // Volume down
+				}
+			}
+			break;
+		case 3: // mac layer left function
+			if (index == 1) { // Right encoder
+				if (clockwise) {
+					tap_code(KC_BRIGHTNESS_UP); // Brightness up
+				} else {
+					tap_code(KC_BRIGHTNESS_DOWN); // Brightness down
+				}
+			}
+            break;
+		case 4: // right function
+			if (index == 0) { // Left encoder
+				if (clockwise) {
+					tap_code16(LCA(KC_RIGHT)); // Navigate forward
+				} else {
+					tap_code16(LCA(KC_LEFT)); // Navigate Back
 				}
 			}
             break;
